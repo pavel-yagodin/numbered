@@ -69,7 +69,11 @@ Validate method retuns `1` - is valid, `0` - is empty, `-1`, is invalid. The res
 var $numbered = $('#numbered');
 var numbered = new Numbered($numbered);
 $numbered.on('change blur input focusin', function () {
-    console.log(numbered.validate());
+	var validate = numbered.validate();
+	$numbered
+		.toggleClass('error', validate < 0)
+		.toggleClass('empty', validate === 0)
+		.toggleClass('valid', validate > 0);
 });
 ```
 
