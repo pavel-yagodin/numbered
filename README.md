@@ -1,4 +1,4 @@
-# Numbered Vanila v1.0.1
+# Numbered Vanila v1.0.2
 
 Plugin for create an input mask of numbers
 
@@ -14,6 +14,9 @@ new Numbered(el, options);
     placeholder: false              // Enable  placeholder to mask
 }
 ```
+
+## NPM
+### https://www.npmjs.com/package/input.numbered
 
 ## Initialize
 ```javascript

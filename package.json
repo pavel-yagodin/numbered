@@ -1,6 +1,6 @@
 {
-  "name": "numbered",
-  "version": "1.0.1",
+  "name": "input.numbered",
+  "version": "1.0.2",
   "description": "Plugin for create an input mask",
   "main": "numbered.js",
   "repository": {
