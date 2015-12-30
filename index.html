@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<title>Numbered Vanila</title>
+
+	<meta name="description" content="Numbered Vanila">
+	<meta name="keywords" content="Plugin for create an input mask of numbers">
+	<meta name="copyright" content="©pavel.yagodin">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: #eee;
+			text-align: center;
+		}
+		.h1 {
+			margin-top: 40px;
+			margin-bottom: 40px;
+			font-family: arial, sans-serif;
+			font-size: 24px;
+			line-height: 36px;
+			text-align: center;
+		}
+		.box {
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 5px;
+			margin-right: 5px;
+			margin-bottom: 10px;
+			padding-top: 8px;
+			padding-left: 16px;
+			padding-right: 16px;
+			padding-bottom: 8px;
+			max-width: 480px;
+			font-family: arial, sans-serif;
+			font-size: 16px;
+			line-height: 28px;
+			text-align: center;
+			color: #000;
+			background-color: #fff;
+			box-shadow: 0 0 1px rgba(0, 0, 0, .5);
+		}
+		.input {
+			font-family: monospace;
+			font-size: 20px;
+			height: 40px;
+			width: 300px;
+			text-align: center;
+		}
+		.input.error:not(:focus){
+			background: rgba(255,0,0,0.4);
+		}
+		.input.error:focus{
+			background: rgba(255,255,0,0.2);;
+		}
+		.input.valid{
+			background: rgba(0,255,0,0.4);
+		}
+		.input.empty{
+			background: rgba(255,255,0,0.1);
+		}
+	</style>
+	<script src="jquery-1.11.1.min.js"></script>
+	<script src="numbered.js"></script>
+</head>
+<body>
+	<div class="main">
+		<h1 class="h1">Numbered Vanila v1.0.1</h1>
+		<div class='box'>
+			<h3 class="h3">Phone</h3>
+			<input class="input" id="example1" value='1234567890'>
+		</div>
+		<div class='box'>
+			<h3 class="h3">Card</h3>
+			<input class="input" id="example2" value=''>
+		</div>
+		<div class='box'>
+			<h3 class="h3">Date</h3>
+			<input class="input" id="example3" value=''>
+			<br>
+			<button class="set">
+				Set 30 / 12 / 2015
+			</button>
+			<button class="clear">
+				Clear
+			</button>
+		</div>
+	</div>
+</body>
+	<script type="text/javascript">
+		var example1 = new Numbered('#example1');
+		var example2 = new Numbered('#example2', {
+			mask: '#### - #### - #### - ####',
+			empty: 'X',
+			placeholder: true
+		});
+		var example3 = new Numbered('#example3', {
+			mask: '## / ## / ####',
+			empty: '-'
+		});
+		$('.set').on('click', function (event) {
+			example3.setVal('30 / 12 / 2015');
+		});
+		$('.clear').on('click', function (event) {
+			example3.setVal('');
+		});
+
+		$('.input').on('input change blur focusin', function (event) {
+			var validate = (new Numbered(this)).validate();
+			$(this)
+				.toggleClass('error', validate < 0)
+				.toggleClass('empty', validate === 0)
+				.toggleClass('valid', validate > 0);
+		}).trigger('change');
+
+	</script>
+</html>
