@@ -1,4 +1,4 @@
-/*! numbered v1.0.0 | pavel-yagodin | MIT License | https://github.com/CSSSR/jquery.numbered */
+/*! numbered v1.0.1 | pavel-yagodin | MIT License | https://github.com/CSSSR/jquery.numbered */
 (function (root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define([], factory);
@@ -20,7 +20,16 @@
 	var Numbered = function (target, params) {
 		var self = this;
 
-		params = params || {};
+		if (typeof target !== 'object') {
+			self.inputs = document.querySelectorAll(target);
+		} else if (typeof target.length !== 'undefined') {
+			self.inputs = target;
+		} else {
+			self.inputs = [target];
+		}
+		self.inputs = Array.prototype.slice.call(self.inputs);
+
+		params = params || (typeof self.inputs[0].numbered !== 'undefined' ? self.inputs[0].numbered.params : {});
 
 		for (var def in defaults) {
 			if (typeof params[def] === 'undefined') {
@@ -41,14 +50,7 @@
 		self.config.regexp      = new RegExp('^' + self.config.mask + '$');
 		self.config.events      = ['input', 'change', 'click', 'focusin', 'blur'];
 
-		if (typeof target !== 'object') {
-			self.inputs = document.querySelectorAll(target);
-		} else if (typeof target.length !== 'undefined') {
-			self.inputs = target;
-		} else {
-			self.inputs = [target];
-		}
-		self.inputs = Array.prototype.slice.call(self.inputs);
+
 
 		self._eventFire = function(el, etype){
 			if (el.fireEvent) {
@@ -148,23 +150,13 @@
 
 			numbered.oldValue = this.value;
 			numbered.lastEvent = event.type;
-
-			if (numbered.config.regexp.test(numbered.input.value)) {
-				event.target.numbered.validate = 1;
-
-			} else if ((event.type === 'change' || event.type === 'blur') && numbered.input.value === '') {
-				event.target.numbered.validate = 0;
-			} else {
-				event.target.numbered.validate = -1;
-			}
-
 			return event.target;
 		};
 
 		for (var index in self.inputs) {
 			var $input = self.inputs[index];
 			var is = false;
-			if (typeof $input.numbered !== 'undefined') {
+			if (typeof $input.numbered === 'оbject' || typeof $input.numbered !== 'undefined') {
 				is = true;
 			}
 			$input.numbered = {
@@ -190,6 +182,7 @@
 
 				for (var key in self.config.events) {
 					$input.removeEventListener(self.config.events[key], self.magic);
+					$input.numbered = null;
 				}
 			}
 			return null;
@@ -204,7 +197,7 @@
 
 				if (self.inputs[index].numbered.config.regexp.test(self.inputs[index].numbered.input.value)) {
 					validate = 1;
-				} else if (self.inputs[index].numbered.input.value === '') {
+				} else if (self.inputs[index].numbered.input.value === '' || self.inputs[index].numbered.input.value === self.inputs[index].numbered.config.placeholder) {
 					validate = 0;
 				} else {
 					validate = -1;
@@ -218,6 +211,28 @@
 			}
 			return res;
 		};
+
+		self.reInit = function () {
+			var self = this;
+			var res = self.inputs.length > 1 ? [] : false;
+			for (var index in self.inputs) {
+				var $input = self.inputs[index];
+				self._eventFire($input, 'blur');
+			}
+			return res;
+		};
+
+		self.setVal = function (value) {
+			var self = this;
+			var res = self.inputs.length > 1 ? [] : false;
+			for (var index in self.inputs) {
+				var $input = self.inputs[index];
+				$input.value = value;
+				self._eventFire($input, 'blur');
+			}
+			return res;
+		};
+
 		return self;
 	};
 

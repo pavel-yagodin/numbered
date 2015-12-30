@@ -1,4 +1,4 @@
-# Numbered Vanila v1.0.0
+# Numbered Vanila v1.0.1
 
 Plugin for create an input mask of numbers
 
@@ -39,6 +39,28 @@ or if jQuery included
 ```javascript
 var $numbered = $('#numbered');
 var numberedFromJQuery = new Numbered($numbered);
+```
+
+## setVal
+```javascript
+var example3 = new Numbered('#example3', {
+	mask: '## / ## / ####',
+	empty: '-'
+});
+$('.set').on('click', function (event) {
+	example3.setVal('30 / 12 / 2015');
+});
+$('.clear').on('click', function (event) {
+	example3.setVal('');
+});
+```
+## reInit
+```javascript
+var example1 = new Numbered('#example1');
+$('.set').on('click', function (event) {
+    $('#example1').val('30 / 12 / 2015');
+    example1.reInit();
+});
 ```
 
 ## Validate
