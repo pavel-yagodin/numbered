@@ -25,7 +25,7 @@ var numberedFromId = new Numbered('#numbered');
 or
 ```javascript
 var numberedFromClass = new Numbered('.numbered', {
-    mask: '#### - #### - #### - ####',
+	mask: '#### - #### - #### - ####',
 	empty: 'X',
 	placeholder: true
 });
