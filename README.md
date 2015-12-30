@@ -67,7 +67,7 @@ $('.set').on('click', function (event) {
 ```
 
 ## Validate
-Validate method retuns `1` - is valid, `0` - is empty, `-1`, is invalid. The result can be `Integer` or `Array` depending on the number of elements. You can listen to your desired events and to validate out at any time.
+Validate method returns `1` - is valid, `0` - is empty, `-1`, is invalid. The result can be `Integer` or `Array` depending on the number of elements. You can listen to your desired events and to validate out at any time.
 ```
 var $numbered = $('#numbered');
 var numbered = new Numbered($numbered);
