@@ -4,8 +4,9 @@
 		define([], factory);
 	} else if (typeof exports === 'object') {
 		module.exports = factory();
+	} else {
+		root.Numbered = factory();
 	}
-	root.Numbered = factory();
 }(this, function () {
 	'use strict';
 
