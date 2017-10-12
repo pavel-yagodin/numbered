@@ -57,6 +57,16 @@ $('.clear').on('click', function (event) {
 	example3.setVal('');
 });
 ```
+## getVal(raw = false)
+```javascript
+var example1 = new Numbered('#example1');
+$('.get').on('click', function (event) {
+	alert('Value: ' + example1.getVal());
+});
+$('.get-raw').on('click', function (event) {
+	alert('Raw value: ' +example1.getVal(true));
+});
+```
 ## reInit
 ```javascript
 var example1 = new Numbered('#example1');
