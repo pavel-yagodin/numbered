@@ -1,4 +1,4 @@
-# Numbered Vanila v1.0.3
+# Numbered Vanila v1.0.5
 
 Plugin for create an input mask of numbers
 
